@@ -1,0 +1,8 @@
+- name: Disable WireGuardTunnel
+  hosts: eu_chat_pc_arenda1, eu_chat_pc_arenda2, us_chat_pc_arenda1, us_chat_pc_arenda2
+  gather_facts: false
+  tasks:
+    - name: Disable the service
+      ansible.windows.win_service:
+        name: WireGuardTunnel${{ inventory_hostname }}
+        state: stopped

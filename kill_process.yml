@@ -1,0 +1,7 @@
+- name: Манипуляции с процессами
+  hosts: us_chat_pc
+  gather_facts: false
+  tasks:
+    - name: Убить бота!!
+      ansible.windows.win_shell: |
+        Stop-Process -Name "Gdsacx" -Force

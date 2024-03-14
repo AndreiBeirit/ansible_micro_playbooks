@@ -1,0 +1,17 @@
+---
+- name: Изменение имени компьютера Windows 10
+  hosts: comp2, comp3, comp5
+  gather_facts: false
+  tasks:
+    - name: Получение текущего имени компьютера
+      ansible.windows.win_shell: hostname
+      register: current_hostname
+
+    - name: Изменение имени компьютера
+      ansible.windows.win_hostname:
+        name: "{{ inventory_hostname }}"
+      when: current_hostname.stdout != inventory_hostname
+
+    - name: Перезагрузка компьютера
+      ansible.windows.win_reboot:
+      when: current_hostname.stdout != inventory_hostname

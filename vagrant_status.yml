@@ -1,0 +1,23 @@
+---
+- name: Run Vagrant Status --global on Windows
+  hosts: comp1
+  gather_facts: false
+  tasks:
+    - name: Смена директории
+      ansible.windows.win_shell: cd D:\VM
+
+    - name: Запросим статус Vagrant
+      ansible.windows.win_shell: vagrant global-status
+      register: vagrant_global_status_result
+
+    - name: Отобразим результаты
+      ansible.builtin.debug:
+        var: vagrant_global_status_result.stdout_lines
+
+    # - name: Запуск очисти инвалидов
+    #   ansible.windows.win_shell: vagrant global-status --prune
+    #   register: vagrant_global_status_prune_result
+
+    # - name: Отобразим результаты
+    #   ansible.builtin.debug:
+    #     var: vagrant_global_status_prune_result.stdout_lines
